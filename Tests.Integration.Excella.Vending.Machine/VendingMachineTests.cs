@@ -61,5 +61,18 @@ namespace Tests.Integration.Excella.Vending.Machine
 
             Assert.AreEqual(25, change);
         }
+
+        [Test]
+        public void ReleaseChange_WhenThreeCoinsAreInsertedAndAProductIsBought_Expect25()
+        {
+            _vendingMachine.InsertCoin();
+            _vendingMachine.InsertCoin();
+            _vendingMachine.InsertCoin();
+
+            _vendingMachine.BuyProduct();
+            var change = _vendingMachine.ReleaseChange();
+
+            Assert.AreEqual(25, change);
+        }
     }
 }
