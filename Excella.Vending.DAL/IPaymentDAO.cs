@@ -3,6 +3,6 @@
     public interface IPaymentDAO
     {
         int Retrieve();
-        void Save(int amount);
+        void SavePayment(int amount);
     }
 }

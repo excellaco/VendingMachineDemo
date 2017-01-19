@@ -48,7 +48,7 @@ namespace Excella.Vending.DAL
             }
         }
 
-        public void Save(int payment)
+        public void SavePayment(int payment)
         {
             using (var connection = GetConnection())
             {

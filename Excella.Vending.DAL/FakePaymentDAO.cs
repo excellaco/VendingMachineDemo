@@ -4,7 +4,7 @@
     {
         private int balance;
 
-        public void Save(int amount)
+        public void SavePayment(int amount)
         {
             balance += amount;
         }

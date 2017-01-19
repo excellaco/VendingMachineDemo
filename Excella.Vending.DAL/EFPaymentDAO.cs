@@ -20,7 +20,7 @@ namespace Excella.Vending.DAL
             }
         }
 
-        public void Save(int amount)
+        public void SavePayment(int amount)
         {
             var payment = context.Payments.Where(p => p.Id == 1).FirstOrDefault();
 

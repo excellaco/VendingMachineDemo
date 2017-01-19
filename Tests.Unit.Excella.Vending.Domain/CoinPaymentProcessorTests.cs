@@ -75,9 +75,9 @@ namespace Tests.Unit.Excella.Vending.Domain
         [Test]
         public void ProcessPayment_WhenPaymentMade_ExpectSavedToDB()
         {
-            paymentDAO.Setup(d => d.Save(It.IsAny<int>())).Verifiable();
+            paymentDAO.Setup(d => d.SavePayment(It.IsAny<int>())).Verifiable();
             paymentProcessor.ProcessPayment(25);
-            paymentDAO.Verify(d => d.Save(25), Times.Once);
+            paymentDAO.Verify(d => d.SavePayment(25), Times.Once);
 
         }
     }

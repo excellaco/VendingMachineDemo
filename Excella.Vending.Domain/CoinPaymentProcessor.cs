@@ -21,7 +21,7 @@ namespace Excella.Vending.Domain
 
         public void ProcessPayment(int amount)
         {
-            paymentDAO.Save(amount);
+            paymentDAO.SavePayment(amount);
         }
 
         public bool IsPaymentMade()
