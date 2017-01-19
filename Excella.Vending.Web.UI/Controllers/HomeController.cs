@@ -23,5 +23,11 @@ namespace Excella.Vending.Web.UI.Controllers
             vendingMachine.InsertCoin();
             return RedirectToAction("Index");
         }
+
+        public ActionResult ReleaseChange()
+        {
+            ViewBag.ReturnedChange = vendingMachine.ReleaseChange();
+            return RedirectToAction("Index");
+        }
     }
 }

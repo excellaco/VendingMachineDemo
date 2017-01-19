@@ -66,5 +66,29 @@ namespace Tests.Integration.Excella.Vending.Web.UI
             result = action.GetActionResult();
             Assert.AreEqual(25, ((ViewResult)result).ViewBag.Balance);
         }
+
+        [Test]
+        public void ReleaseChange_WithMoneyEntered_ReturnsChange()
+        {
+            // Arrange
+            var releaseChangeAction = _controller.Action(c => c.ReleaseChange());
+
+            // Act
+            var result = releaseChangeAction.GetActionResult();
+
+            // Assert
+            Assert.IsInstanceOf<RedirectToRouteResult>(result);
+
+            var homePageAction = _controller.Action(c => c.Index());
+            result = homePageAction.GetActionResult();
+            Assert.AreEqual(25, ((ViewResult)result).ViewBag.ReturnedChange);
+
+        }
+
+        [Test]
+        public void ReleaseChange_WithMoneyEntered_SetsBalanceToZero()
+        {
+
+        }
     }
 }
