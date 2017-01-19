@@ -29,6 +29,7 @@ namespace Excella.Vending.Machine
         {
             if (paymentProcessor.IsPaymentMade())
             {
+                paymentProcessor.ProcessPurchase();
                 Message = "Enjoy!";
                 return new Product();
             }
