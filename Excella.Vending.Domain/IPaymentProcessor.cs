@@ -6,5 +6,7 @@
 
         bool IsPaymentMade();
         void ProcessPayment(int amount);
+
+        void ProcessPurchase();
     }
 }
