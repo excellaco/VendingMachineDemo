@@ -46,9 +46,27 @@ namespace Tests.Unit.Excella.Vending.Domain
         }
 
         [Test]
-        public void IsPaymentMade_WhenMoney_ExpectTrue()
+        public void IsPaymentMade_WhenLessThan50Cents_ExpectFalse()
         {
             paymentDAO.Setup(d => d.Retrieve()).Returns(25);
+            var actual = paymentProcessor.IsPaymentMade();
+
+            Assert.AreEqual(false, actual);
+        }
+
+        [Test]
+        public void IsPaymentMade_When50Cents_ExpectTrue()
+        {
+            paymentDAO.Setup(d => d.Retrieve()).Returns(50);
+            var actual = paymentProcessor.IsPaymentMade();
+
+            Assert.AreEqual(true, actual);
+        }
+
+        [Test]
+        public void IsPaymentMade_WhenGreaterThan50Cents_ExpectTrue()
+        {
+            paymentDAO.Setup(d => d.Retrieve()).Returns(75);
             var actual = paymentProcessor.IsPaymentMade();
 
             Assert.AreEqual(true, actual);

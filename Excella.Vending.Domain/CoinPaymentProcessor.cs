@@ -26,7 +26,7 @@ namespace Excella.Vending.Domain
 
         public bool IsPaymentMade()
         {
-            return Payment > 0;
+            return Payment >= 50;
         }
     }
 }
