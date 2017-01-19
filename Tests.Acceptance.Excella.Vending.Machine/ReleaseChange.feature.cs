@@ -81,6 +81,23 @@ this.ScenarioSetup(scenarioInfo);
 #line hidden
             this.ScenarioCleanup();
         }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Get Change Back When not purchasing a product")]
+        public virtual void GetChangeBackWhenNotPurchasingAProduct()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Get Change Back When not purchasing a product", ((string[])(null)));
+#line 11
+this.ScenarioSetup(scenarioInfo);
+#line 12
+ testRunner.Given("I have inserted a quarter", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 13
+ testRunner.When("I release the change", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 14
+ testRunner.Then("I should receive a quarter", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
     }
 }
 #pragma warning restore

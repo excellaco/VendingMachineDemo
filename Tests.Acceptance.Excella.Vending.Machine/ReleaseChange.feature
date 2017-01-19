@@ -8,6 +8,9 @@ Scenario: No change back when none given
 	When I release the change
 	Then I should receive no change
 
-# TODO: Change back when I release change without purchasing a product
+Scenario: Get Change Back When not purchasing a product
+	Given I have inserted a quarter
+	When I release the change
+	Then I should receive a quarter
 
 # TODO: Remaining change back when I don't use it all on a product

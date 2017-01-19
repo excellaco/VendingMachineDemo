@@ -59,6 +59,12 @@ namespace Tests.Acceptance.Excella.Vending.Machine
             Assert.That(_changeReleased, Is.EqualTo(0));
         }
 
+        [Then(@"I should receive a quarter")]
+        public void ThenIShouldReceiveAQuarter()
+        {
+            Assert.That(_changeReleased, Is.EqualTo(25));
+        }
+
         [Then(@"I should receive the product")]
         public void ThenIShouldReceiveTheProduct()
         {
