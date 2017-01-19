@@ -30,5 +30,17 @@ namespace Excella.Vending.DAL
                 context.SaveChanges();
             }
         }
+
+        public void SavePurchase()
+        {
+            const int PURCHASE_COST = 50;
+            var payment = context.Payments.Where(p => p.Id == 1).FirstOrDefault();
+
+            if (payment != null)
+            {
+                payment.Value -= PURCHASE_COST;
+                context.SaveChanges();
+            }
+        }
     }
 }

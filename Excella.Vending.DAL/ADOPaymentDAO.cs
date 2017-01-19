@@ -64,6 +64,23 @@ namespace Excella.Vending.DAL
             }
         }
 
+        public void SavePurchase()
+        {
+            const int PURCHASE_PRICE = 50;
+            using (var connection = GetConnection())
+            {
+                SqlCommand command = new SqlCommand(string.Format("UPDATE Payment SET Value = Value - {0} WHERE ID = 1;", PURCHASE_PRICE), connection);
+                connection.Open();
+
+                var rowsChanged = command.ExecuteNonQuery();
+
+                if (rowsChanged < 1)
+                {
+                    Console.WriteLine("No rows found.");
+                }
+            }
+        }
+
         private SqlConnection GetConnection()
         {
             string connectionString = ConfigurationManager.ConnectionStrings["VendingMachineContext"]?.ConnectionString;

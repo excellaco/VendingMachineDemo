@@ -1,4 +1,5 @@
-﻿using Excella.Vending.DAL;
+﻿using System.Runtime.InteropServices;
+using Excella.Vending.DAL;
 
 namespace Excella.Vending.Domain
 {
@@ -27,6 +28,11 @@ namespace Excella.Vending.Domain
         public bool IsPaymentMade()
         {
             return Payment >= 50;
+        }
+
+        public void ProcessPurchase()
+        {
+            paymentDAO.SavePurchase();
         }
     }
 }

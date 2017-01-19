@@ -78,7 +78,13 @@ namespace Tests.Unit.Excella.Vending.Domain
             paymentDAO.Setup(d => d.SavePayment(It.IsAny<int>())).Verifiable();
             paymentProcessor.ProcessPayment(25);
             paymentDAO.Verify(d => d.SavePayment(25), Times.Once);
+        }
 
+        [Test]
+        public void ProcessPurchase_WhenPurchaseMade_ExpectSavedToDB()
+        {
+            paymentProcessor.ProcessPurchase();
+            paymentDAO.Verify(d => d.SavePurchase(), Times.Once);
         }
     }
 }
