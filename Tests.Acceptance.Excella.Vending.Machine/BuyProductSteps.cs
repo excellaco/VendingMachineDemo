@@ -19,7 +19,7 @@ namespace Tests.Acceptance.Excella.Vending.Machine
         [BeforeScenario]
         public void Setup()
         {
-            _transactionScope = new TransactionScope(TransactionScopeOption.RequiresNew);
+            _transactionScope = new TransactionScope();
 
             _product = null;
             _changeReleased = 0;
