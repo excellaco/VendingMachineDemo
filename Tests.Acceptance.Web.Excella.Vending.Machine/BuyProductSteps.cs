@@ -8,39 +8,12 @@ using TechTalk.SpecFlow;
 
 namespace Tests.Acceptance.Web.Excella.Vending.Machine
 {
-    [Binding]
-    public class BuyProductSteps
+    public static class IISExpressTestManager
     {
         private const int IIS_PORT = 8484;
         private const string APPLICATION_NAME = "Excella.Vending.Web.UI";
-        private HomePage _homePage;
-        private int _previousBalance;
 
-        [BeforeFeature]
-        public static void BeforeFeature()
-        {
-            StartIISExpress();
-        }
-
-        [AfterFeature]
-        public static void AfterFeature()
-        {
-            StopIISExpress();
-            //TODO: Release change to put the value back for the sake of other tests.
-        }
-
-        private static Process[] GetIISProcesses()
-        {
-            return Process.GetProcessesByName("iisexpress");
-        }
-        private static bool IsIISExpressRunning()
-        {
-            var localIISExpressProcesses = GetIISProcesses();
-
-            return localIISExpressProcesses.Any(x => x.HasExited == false);
-        }
-
-        private static void StopIISExpress()
+        public static void StopIISExpress()
         {
             var localIISExpressProcesses = GetIISProcesses();
             foreach (var iisExpressProcess in localIISExpressProcesses)
@@ -51,12 +24,23 @@ namespace Tests.Acceptance.Web.Excella.Vending.Machine
                 }
             }
         }
+        private static Process[] GetIISProcesses()
+        {
+            return Process.GetProcessesByName("iisexpress");
+        }
+        public static bool IsIISExpressRunning()
+        {
+            var localIISExpressProcesses = GetIISProcesses();
 
-        private static void StartIISExpress()
+            return localIISExpressProcesses.Any(x => x.HasExited == false);
+
+        }
+        public static void StartIISExpress()
         {
             var applicationPath = GetApplicationPath(APPLICATION_NAME);
             var programFiles = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86);
             var startInfoFileName = programFiles + @"\IIS Express\iisexpress.exe";
+            var startInfoArguments = $"/config:\"{applicationPath}\\..\\..\\..\\.vs\\config\\applicationhost.config\"";
 
             var iisProcess = new Process
             {
@@ -69,7 +53,6 @@ namespace Tests.Acceptance.Web.Excella.Vending.Machine
 
             iisProcess.Start();
         }
-
         private static string GetApplicationPath(string applicationName)
         {
             var solutionFolder = Path.GetDirectoryName(AppDomain.CurrentDomain.BaseDirectory);
@@ -77,10 +60,34 @@ namespace Tests.Acceptance.Web.Excella.Vending.Machine
             return Path.Combine(solutionFolder, applicationName);
         }
 
+    }
+    [Binding]
+    public class BuyProductSteps
+    {
+        private HomePage _homePage;
+        private int _previousBalance;
+
+        [BeforeFeature]
+        public static void BeforeFeature()
+        {
+            IISExpressTestManager.StartIISExpress();
+        }
+
+        [AfterFeature]
+        public static void AfterFeature()
+        {
+            IISExpressTestManager.StopIISExpress();
+            //TODO: Release change to put the value back for the sake of other tests.
+        }
+
+
+
+
+
         [BeforeScenario]
         public void Setup()
         {
-            if (!IsIISExpressRunning())
+            if (!IISExpressTestManager.IsIISExpressRunning())
             {
                 throw new Exception("IIS Express must be running for this test to work");
             }
