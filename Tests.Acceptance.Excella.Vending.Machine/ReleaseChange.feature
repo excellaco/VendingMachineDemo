@@ -20,6 +20,10 @@ Scenario: Get all my change back when not purchasing
 	When I release the change
 	Then I should receive 75 cents
 
-
-
-# TODO: Remaining change back when I don't use it all on a product
+Scenario: Get Remaining Change Back when I buy a product
+	Given I have inserted a quarter
+	And I have inserted a quarter
+	And I have inserted a quarter
+	When I purchase a product
+	And I release the change
+	Then I should receive a quarter
