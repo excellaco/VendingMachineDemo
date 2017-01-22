@@ -1,4 +1,7 @@
 ﻿using System;
+using Excella.Vending.DAL;
+using Excella.Vending.Domain;
+using Excella.Vending.Machine;
 using NUnit.Framework;
 using TechTalk.SpecFlow;
 // ReSharper disable UnusedMember.Global -- test methods are said to be unused which isn't correct. -SK
@@ -9,6 +12,7 @@ namespace Tests.Acceptance.Web.Excella.Vending.Machine
     public class BuyProductSteps
     {
         private HomePage _homePage;
+        private VendingMachine _vendingMachine;
 
         [BeforeFeature]
         public static void BeforeFeature()
@@ -26,6 +30,7 @@ namespace Tests.Acceptance.Web.Excella.Vending.Machine
         [BeforeScenario]
         public void Setup()
         {
+            _vendingMachine = new VendingMachine(new CoinPaymentProcessor(new ADOPaymentDAO()));
             if (!IISExpressTestManager.IsIISExpressRunning())
             {
                 throw new Exception("IIS Express must be running for this test to work");
@@ -38,6 +43,7 @@ namespace Tests.Acceptance.Web.Excella.Vending.Machine
         public void Teardown()
         {
             _homePage?.Close();
+            _vendingMachine.ReleaseChange();
         }
 
         [When(@"I insert a Quarter")]
