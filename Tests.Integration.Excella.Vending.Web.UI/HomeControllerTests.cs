@@ -22,9 +22,8 @@ namespace Tests.Integration.Excella.Vending.Web.UI
         [SetUp]
         public void Setup()
         {
-            _transactionScope = new TransactionScope(TransactionScopeOption.RequiresNew);
-
-            var paymentDAO = new ADOPaymentDAO(_transactionScope);
+            _transactionScope = new TransactionScope();
+            var paymentDAO = new ADOPaymentDAO();
             var paymentProcessor = new CoinPaymentProcessor(paymentDAO);
             var vendingMachine = new VendingMachine(paymentProcessor);
             _controller = new HomeController(vendingMachine);

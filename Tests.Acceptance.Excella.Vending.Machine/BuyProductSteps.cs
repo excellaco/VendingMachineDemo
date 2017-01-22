@@ -19,11 +19,10 @@ namespace Tests.Acceptance.Excella.Vending.Machine
         [BeforeScenario]
         public void Setup()
         {
-            _transactionScope = new TransactionScope();
-
             _product = null;
             _changeReleased = 0;
-            var paymentDAO = new ADOPaymentDAO(_transactionScope);
+            _transactionScope = new TransactionScope();
+            var paymentDAO = new ADOPaymentDAO();
             var paymentProcessor = new CoinPaymentProcessor(paymentDAO);
             _vendingMachine = new VendingMachine(paymentProcessor);
         }

@@ -7,43 +7,29 @@ namespace Excella.Vending.DAL
 {
     public class ADOPaymentDAO : IPaymentDAO
     {
-        private TransactionScope _transactionScope;
-        public ADOPaymentDAO()
-        {
-            _transactionScope = new TransactionScope();
-        }
-
-        public ADOPaymentDAO(TransactionScope transactionScope)
-        {
-            _transactionScope = transactionScope;
-        }
         public int Retrieve()
         {
             using (var connection = GetConnection())
             {
                 int payment = 0;
 
-                using (connection)
+                SqlCommand command = new SqlCommand("SELECT Value FROM Payment WHERE ID = 1;", connection);
+                connection.Open();
+
+                SqlDataReader reader = command.ExecuteReader();
+
+                if (reader.HasRows)
                 {
-                    SqlCommand command = new SqlCommand("SELECT Value FROM Payment WHERE ID = 1;", connection);
-                    connection.Open();
-
-                    SqlDataReader reader = command.ExecuteReader();
-
-                    if (reader.HasRows)
+                    while (reader.Read())
                     {
-                        while (reader.Read())
-                        {
-                            payment = reader.GetInt32(0);
-                        }
+                        payment = reader.GetInt32(0);
                     }
-                    else
-                    {
-                        Console.WriteLine("No rows found.");
-                    }
-                    reader.Close();
-
                 }
+                else
+                {
+                    Console.WriteLine("No rows found.");
+                }
+                reader.Close();
                 return payment;
             }
         }
