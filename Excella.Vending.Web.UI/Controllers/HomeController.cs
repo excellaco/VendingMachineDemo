@@ -27,6 +27,7 @@ namespace Excella.Vending.Web.UI.Controllers
         public ActionResult ReleaseChange()
         {
             ViewBag.ReturnedChange = vendingMachine.ReleaseChange();
+            ViewBag.Balance = vendingMachine.Balance;
             return RedirectToAction("Index");
         }
     }

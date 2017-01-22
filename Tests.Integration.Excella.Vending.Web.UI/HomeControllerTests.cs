@@ -88,7 +88,19 @@ namespace Tests.Integration.Excella.Vending.Web.UI
         [Test]
         public void ReleaseChange_WithMoneyEntered_SetsBalanceToZero()
         {
+            // Arrange
+            _controller.InsertCoin();
 
+            // Act
+            var releaseChangeAction = _controller.Action(c => c.ReleaseChange());
+            var result = releaseChangeAction.GetActionResult();
+
+            // Assert
+            Assert.IsInstanceOf<RedirectToRouteResult>(result);
+
+            var homePageAction = _controller.Action(c => c.Index());
+            var homePageResult = homePageAction.GetActionResult();
+            Assert.AreEqual(0, ((ViewResult)homePageResult).ViewBag.Balance);
         }
     }
 }
