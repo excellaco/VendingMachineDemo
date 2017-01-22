@@ -111,5 +111,22 @@ namespace Tests.Unit.Excella.Vending.Machine
 
             Assert.AreEqual("Enjoy!", message);
         }
+
+        [Test]
+        public void ReleaseChange_WhenCoinInserted_CallsPaymentProcessorToResetPayment()
+        {
+            paymentProcessor.Setup(x => x.Payment).Returns(25);
+            vendingMachine.ReleaseChange();
+
+            paymentProcessor.Verify(x=>x.ClearPayments(), Times.Once);
+        }
+
+        [Test]
+        public void ReleaseChange_WhenNoCoinInserted_CallsPaymentProcessorToResetPayment()
+        {
+            vendingMachine.ReleaseChange();
+
+            paymentProcessor.Verify(x => x.ClearPayments(), Times.Never);
+        }
     }
 }

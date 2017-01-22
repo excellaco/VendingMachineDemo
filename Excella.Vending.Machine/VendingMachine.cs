@@ -17,7 +17,14 @@ namespace Excella.Vending.Machine
 
         public int ReleaseChange()
         {
-            return paymentProcessor.Payment;
+            var payment = paymentProcessor.Payment;
+
+            if (payment > 0)
+            {
+                paymentProcessor.ClearPayments();
+            }
+
+            return payment;
         }
 
         public void InsertCoin()

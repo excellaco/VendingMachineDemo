@@ -34,5 +34,10 @@ namespace Excella.Vending.Domain
         {
             paymentDAO.SavePurchase();
         }
+
+        public void ClearPayments()
+        {
+            // TODO
+        }
     }
 }
