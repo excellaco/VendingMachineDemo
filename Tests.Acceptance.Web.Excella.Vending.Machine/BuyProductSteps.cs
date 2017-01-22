@@ -108,14 +108,7 @@ namespace Tests.Acceptance.Web.Excella.Vending.Machine
         [When(@"I purchase a product")]
         public void WhenIPurchaseAProduct()
         {
-            //try
-            //{
-            //    product = vendingMachine.BuyProduct();
-            //}
-            //catch (InvalidOperationException e)
-            //{
-            //    Console.WriteLine("Product purchase failed: {0}", e.Message);
-            //}
+            // TODO 
         }
 
         [Then(@"I should receive the product")]
