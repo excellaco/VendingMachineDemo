@@ -9,7 +9,6 @@ namespace Tests.Acceptance.Web.Excella.Vending.Machine
     public class BuyProductSteps
     {
         private HomePage _homePage;
-        private int _previousBalance;
 
         [BeforeFeature]
         public static void BeforeFeature()
@@ -47,17 +46,15 @@ namespace Tests.Acceptance.Web.Excella.Vending.Machine
             InsertQuarter();
         }
 
-        [Then(@"The balance should increase by 25 cents")]
-        public void TheBalanceShouldIncreaseBy25Cents()
+        [Then(@"The balance should be (.*) cents")]
+        public void TheBalanceShouldBe(int cents)
         {
             var balance = _homePage.Balance();
 
-            Assert.That(balance, Is.GreaterThan(_previousBalance));
-            Assert.That(balance, Is.EqualTo(_previousBalance + 25));
+            Assert.That(balance, Is.EqualTo(cents));
         }
         private void InsertQuarter()
         {
-            _previousBalance = _homePage.Balance();
             _homePage.InsertCoinButton().Click();
         }
 
