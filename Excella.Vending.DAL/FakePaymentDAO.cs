@@ -17,6 +17,11 @@ namespace Excella.Vending.DAL
             balance -= PURCHASE_COST;
         }
 
+        public void ClearPayments()
+        {
+            // TODO
+        }
+
         public int Retrieve()
         {
             return balance;

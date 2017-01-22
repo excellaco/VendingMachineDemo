@@ -5,5 +5,6 @@
         int Retrieve();
         void SavePayment(int amount);
         void SavePurchase();
+        void ClearPayments();
     }
 }

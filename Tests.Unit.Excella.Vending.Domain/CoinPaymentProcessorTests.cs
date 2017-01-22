@@ -86,5 +86,23 @@ namespace Tests.Unit.Excella.Vending.Domain
             paymentProcessor.ProcessPurchase();
             paymentDAO.Verify(d => d.SavePurchase(), Times.Once);
         }
+
+        [Test]
+        public void ClearPayment_WhenPaymentHasBeenMade_TellsDaoToClearPayment()
+        {
+            paymentDAO.Setup(x => x.Retrieve()).Returns(25);
+            paymentProcessor.ClearPayments();
+            
+            paymentDAO.Verify(x=>x.ClearPayments(), Times.Once);
+        }
+
+        [Test]
+        public void ClearPayment_WhenPaymentHasNotBeenMade_DoesNotTellDaoToClearPayment()
+        {
+            paymentDAO.Setup(x => x.Retrieve()).Returns(0);
+            paymentProcessor.ClearPayments();
+
+            paymentDAO.Verify(x => x.ClearPayments(), Times.Never);
+        }
     }
 }

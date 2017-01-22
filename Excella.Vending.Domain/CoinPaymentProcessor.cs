@@ -37,7 +37,10 @@ namespace Excella.Vending.Domain
 
         public void ClearPayments()
         {
-            // TODO
+            if (Payment > 0)
+            {
+                paymentDAO.ClearPayments();
+            }
         }
     }
 }

@@ -81,6 +81,11 @@ namespace Excella.Vending.DAL
             }
         }
 
+        public void ClearPayments()
+        {
+            // TODO
+        }
+
         private SqlConnection GetConnection()
         {
             string connectionString = ConfigurationManager.ConnectionStrings["VendingMachineContext"]?.ConnectionString;

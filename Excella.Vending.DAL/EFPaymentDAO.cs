@@ -42,5 +42,10 @@ namespace Excella.Vending.DAL
                 context.SaveChanges();
             }
         }
+
+        public void ClearPayments()
+        {
+            // TODO
+        }
     }
 }
