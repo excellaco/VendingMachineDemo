@@ -19,7 +19,7 @@ namespace Excella.Vending.DAL
 
         public void ClearPayments()
         {
-            // TODO
+            balance = 0;
         }
 
         public int Retrieve()

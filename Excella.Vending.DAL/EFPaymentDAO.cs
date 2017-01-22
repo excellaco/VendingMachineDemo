@@ -45,7 +45,14 @@ namespace Excella.Vending.DAL
 
         public void ClearPayments()
         {
-            // TODO
+            const int PURCHASE_COST = 50;
+            var payment = context.Payments.Where(p => p.Id == 1).FirstOrDefault();
+
+            if (payment != null)
+            {
+                payment.Value = 0;
+                context.SaveChanges();
+            }
         }
     }
 }
