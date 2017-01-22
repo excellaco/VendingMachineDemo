@@ -90,6 +90,7 @@ namespace Excella.Vending.DAL
 
                 var rowsChanged = command.ExecuteNonQuery();
 
+                // TODO: Remove this; we're covered by tests and don't need it
                 if (rowsChanged < 1)
                 {
                     Console.WriteLine("No rows found.");
