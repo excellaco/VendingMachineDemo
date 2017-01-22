@@ -24,10 +24,6 @@ namespace Tests.Acceptance.Web.Excella.Vending.Machine
             //TODO: Release change to put the value back for the sake of other tests.
         }
 
-
-
-
-
         [BeforeScenario]
         public void Setup()
         {
