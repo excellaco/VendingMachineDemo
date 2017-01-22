@@ -71,18 +71,18 @@ namespace Tests.Integration.Excella.Vending.Web.UI
         public void ReleaseChange_WithMoneyEntered_ReturnsChange()
         {
             // Arrange
-            var releaseChangeAction = _controller.Action(c => c.ReleaseChange());
+            _controller.InsertCoin();
 
             // Act
+            var releaseChangeAction = _controller.Action(c => c.ReleaseChange());
             var result = releaseChangeAction.GetActionResult();
 
             // Assert
             Assert.IsInstanceOf<RedirectToRouteResult>(result);
 
             var homePageAction = _controller.Action(c => c.Index());
-            result = homePageAction.GetActionResult();
-            Assert.AreEqual(25, ((ViewResult)result).ViewBag.ReturnedChange);
-
+            var homePageResult = homePageAction.GetActionResult();
+            Assert.AreEqual(25, ((ViewResult)homePageResult).ViewBag.ReturnedChange);
         }
 
         [Test]
