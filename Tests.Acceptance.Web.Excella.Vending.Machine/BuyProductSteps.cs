@@ -108,12 +108,13 @@ namespace Tests.Acceptance.Web.Excella.Vending.Machine
         [When(@"I purchase a product")]
         public void WhenIPurchaseAProduct()
         {
-            // TODO 
+            _homePage.PurchaseProductButton().Click();
         }
 
         [Then(@"I should receive the product")]
         public void ThenIShouldReceiveTheProduct()
         {
+
             //Assert.IsNotNull(product);
         }
 

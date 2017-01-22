@@ -48,5 +48,11 @@ namespace Tests.Acceptance.Web.Excella.Vending.Machine
                 return Balance();
             }
         }
+
+        public IWebElement PurchaseProductButton()
+        {
+            IWebElement button = _browser.FindElement(By.Id("purchaseProduct"));
+            return button;
+        }
     }
 }
