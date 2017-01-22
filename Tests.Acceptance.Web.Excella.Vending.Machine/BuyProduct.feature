@@ -7,6 +7,12 @@ Scenario: Balance is Updated on Coin Insert
 	When I insert a Quarter
 	Then The balance should be 25 cents
 
+Scenario: Insert Multiple Coins
+	When I insert a Quarter
+	And I insert a Quarter
+	And I insert a Quarter
+	Then The balance should be 75 cents
+
 Scenario: Buy a product from the vending machine
 	Given I have inserted a quarter 
 	And I have inserted a quarter
