@@ -12,7 +12,6 @@ namespace Tests.Acceptance.Web.Excella.Vending.Machine
     public class BuyProductSteps
     {
         private HomePage _homePage;
-        private VendingMachine _vendingMachine;
 
         [BeforeFeature]
         public static void BeforeFeature()
@@ -29,7 +28,7 @@ namespace Tests.Acceptance.Web.Excella.Vending.Machine
         [BeforeScenario]
         public void Setup()
         {
-            _vendingMachine = new VendingMachine(new CoinPaymentProcessor(new ADOPaymentDAO()));
+
             if (!IISExpressTestManager.IsIISExpressRunning())
             {
                 throw new Exception("IIS Express must be running for this test to work");
@@ -41,8 +40,8 @@ namespace Tests.Acceptance.Web.Excella.Vending.Machine
         [AfterScenario]
         public void Teardown()
         {
+            _homePage?.ReleaseChangeButton().Click();
             _homePage?.Close();
-            _vendingMachine.ReleaseChange();
         }
 
         [When(@"I insert a Quarter")]
