@@ -15,7 +15,8 @@ namespace Excella.Vending.Web.UI.Controllers
         public ActionResult Index()
         {
             ViewBag.Balance = vendingMachine.Balance;
-            if (ViewBag.ReleasedChange == null)
+            ViewBag.ReleasedChange = TempData["ReleasedChange"];
+;           if (ViewBag.ReleasedChange == null)
             {
                 ViewBag.ReleasedChange = 0;
             }
@@ -30,8 +31,8 @@ namespace Excella.Vending.Web.UI.Controllers
 
         public ActionResult ReleaseChange()
         {
-            var released = vendingMachine.ReleaseChange();
-            return RedirectToAction("Index", new {ReleasedChange = released});
+            TempData["ReleasedChange"] = vendingMachine.ReleaseChange();
+            return RedirectToAction("Index");
         }
     }
 }
