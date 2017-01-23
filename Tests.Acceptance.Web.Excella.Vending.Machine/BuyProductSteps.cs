@@ -24,7 +24,6 @@ namespace Tests.Acceptance.Web.Excella.Vending.Machine
         public static void AfterFeature()
         {
             IISExpressTestManager.StopIISExpress();
-            //TODO: Release change to put the value back for the sake of other tests.
         }
 
         [BeforeScenario]
