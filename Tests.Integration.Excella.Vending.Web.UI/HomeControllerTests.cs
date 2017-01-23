@@ -81,7 +81,7 @@ namespace Tests.Integration.Excella.Vending.Web.UI
 
             var homePageAction = _controller.Action(c => c.Index());
             var homePageResult = homePageAction.GetActionResult();
-            Assert.AreEqual(25, ((ViewResult)homePageResult).ViewBag.ReturnedChange);
+            Assert.AreEqual(25, ((ViewResult)homePageResult).ViewBag.ReleasedChange);
         }
 
         [Test]
