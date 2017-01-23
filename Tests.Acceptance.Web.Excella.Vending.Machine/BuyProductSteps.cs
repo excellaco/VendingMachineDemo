@@ -1,7 +1,4 @@
 ﻿using System;
-using Excella.Vending.DAL;
-using Excella.Vending.Domain;
-using Excella.Vending.Machine;
 using NUnit.Framework;
 using TechTalk.SpecFlow;
 // ReSharper disable UnusedMember.Global -- test methods are said to be unused which isn't correct. -SK
