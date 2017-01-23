@@ -70,10 +70,30 @@ namespace Tests.Acceptance.Web.Excella.Vending.Machine
             InsertQuarter();
         }
 
+        [When("I do not purchase a product")]
+        public void WhenIDoNotPurchaseAProduct()
+        {
+            //No-op -- doing nothing here
+        }
+
         [When(@"I purchase a product")]
         public void WhenIPurchaseAProduct()
         {
             _homePage.PurchaseProductButton().Click();
+        }
+
+        [When(@"I release the change")]
+        public void WhenIReleaseTheChange()
+        {
+            _homePage.ReleaseChangeButton().Click();
+        }
+
+        [Then(@"I should receive (.*) cents in change")]
+        public void ThenIShouldReceiveXCentsInChange(int cents)
+        {
+            var releasedChange = _homePage.ReleasedChange();
+
+            Assert.That(releasedChange, Is.EqualTo(cents));
         }
 
         [Then(@"I should receive the product")]
