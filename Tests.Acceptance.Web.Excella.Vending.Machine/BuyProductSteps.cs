@@ -74,7 +74,7 @@ namespace Tests.Acceptance.Web.Excella.Vending.Machine
         [When(@"I purchase a product")]
         public void WhenIPurchaseAProduct()
         {
-            _homePage.PurchaseProductButton().Click();
+            // TODO 
         }
 
         [When(@"I release the change")]

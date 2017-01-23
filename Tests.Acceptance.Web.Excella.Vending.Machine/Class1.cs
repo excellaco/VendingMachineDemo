@@ -50,12 +50,6 @@ namespace Tests.Acceptance.Web.Excella.Vending.Machine
             }
         }
 
-        public IWebElement PurchaseProductButton()
-        {
-            IWebElement button = _browser.FindElement(By.Id("purchaseProduct"));
-            return button;
-        }
-
         public IWebElement ReleaseChangeButton()
         {
             IWebElement button = _browser.FindElement(By.Id("releaseChange"));
