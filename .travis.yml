@@ -1,0 +1,9 @@
+language: csharp
+solution: Excella.Vending.sln
+
+install:
+  - nuget restore Excella.Vending.sln
+  - nuget install NUnit.Console -Version 3.7.0 -OutputDirectory testrunner
+script:
+  - xbuild /p:Configuration=Release Excella.Vending.sln
+  - mono ./testrunner/NUnit.Console.3.7.0/tools/nunit-console.exe ./Tests.Unit.Excella.Vending.Domain/bin/Release/Tests.Unit.Excella.Vending.Domain.dll ./Tests.Unit.Excella.Vending.Machine/bin/Release/Tests.Unit.Excella.Vending.Machine.dll
