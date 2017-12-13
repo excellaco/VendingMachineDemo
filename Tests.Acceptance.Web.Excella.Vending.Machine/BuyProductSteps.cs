@@ -66,7 +66,9 @@ namespace Tests.Acceptance.Web.Excella.Vending.Machine
         [Then(@"The balance should be (.*) cents")]
         public void TheBalanceShouldBe(int cents)
         {
-            var balance = GetBalance();
+            var wait = new WebDriverWait(Browser, TimeSpan.FromSeconds(10));
+            var element = wait.Until(drv => drv.FindElement(By.Id("balanceAmount"))).Text;
+            var balance = int.Parse(element);
 
             Assert.That(balance, Is.EqualTo(cents));
         }
@@ -124,13 +126,6 @@ namespace Tests.Acceptance.Web.Excella.Vending.Machine
         public void ThenIShouldNotReceiveAProduct()
         {
             //Assert.IsNull(product);
-        }
-
-        private int GetBalance()
-        {
-            var wait = new WebDriverWait(Browser, TimeSpan.FromSeconds(10));
-            var element = wait.Until(drv => drv.FindElement(By.Id("balanceAmount"))).Text;
-            return int.Parse(element);
         }
     }
 }
