@@ -10,28 +10,23 @@ using Tests.Integration.Excella.Vending.Machine;
 
 namespace Tests.Integration.Excella.Vending.Web.UI
 {
-    [TestFixtureSource(typeof(PaymentDaoTestCases), "TestCases")]
-    public class VendingMachineControllerTests
+    public class VendingMachineControllerTestsADO
     {
         private TransactionScope _transactionScope;
         private VendingMachineController _controller;
-        private readonly IPaymentDAO _injectedPaymentDao;
-
-        public VendingMachineControllerTests(IPaymentDAO paymentDao)
-        {
-            _injectedPaymentDao = paymentDao;
-        }
+        private readonly IPaymentDAO _paymentDao = new ADOPaymentDAO();
 
         [OneTimeSetUp]
         public void FixtureSetup()
         {
+            _paymentDao.ClearPayments();
         }
 
         [SetUp]
         public void Setup()
         {
             _transactionScope = new TransactionScope();
-            var paymentProcessor = new CoinPaymentProcessor(_injectedPaymentDao);
+            var paymentProcessor = new CoinPaymentProcessor(_paymentDao);
             var vendingMachine = new VendingMachine(paymentProcessor);
             _controller = new VendingMachineController(vendingMachine);
         }
