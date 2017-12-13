@@ -100,7 +100,9 @@ namespace Tests.Acceptance.Web.Excella.Vending.Machine
         [Then(@"I should receive (.*) cents in change")]
         public void ThenIShouldReceiveXCentsInChange(int cents)
         {
-            var releasedChange = GetReleasedChange();
+            var wait = new WebDriverWait(Browser, TimeSpan.FromSeconds(10));
+            var elementText = wait.Until(drv => drv.FindElement(By.Id("releasedChangeAmount"))).Text;
+            var releasedChange = int.Parse(elementText);
 
             Assert.That(releasedChange, Is.EqualTo(cents));
         }
@@ -122,19 +124,6 @@ namespace Tests.Acceptance.Web.Excella.Vending.Machine
         public void ThenIShouldNotReceiveAProduct()
         {
             //Assert.IsNull(product);
-        }
-
-        private int GetReleasedChange()
-        {
-            var wait = new WebDriverWait(Browser, TimeSpan.FromSeconds(10));
-
-            var element = wait.Until(drv => drv.FindElement(By.Id("releasedChangeAmount"))).Text;
-            int changeAmt;
-            if (int.TryParse(element, out changeAmt))
-            {
-                return changeAmt;
-            }
-            return 0;
         }
 
         private int GetBalance()
