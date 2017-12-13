@@ -52,7 +52,8 @@ namespace Tests.Acceptance.Web.Excella.Vending.Machine
         [AfterScenario]
         public void Teardown()
         {
-            ClickReleaseChangeButton();
+            var button = Browser.FindElement(By.Id("releaseChange"));
+            button.Click();
         }
 
         [When(@"I insert a Quarter")]
@@ -90,7 +91,8 @@ namespace Tests.Acceptance.Web.Excella.Vending.Machine
         [When(@"I release the change")]
         public void WhenIReleaseTheChange()
         {
-            ClickReleaseChangeButton();
+            var button = Browser.FindElement(By.Id("releaseChange"));
+            button.Click();
         }
 
         [Then(@"I should receive (.*) cents in change")]
@@ -123,13 +125,6 @@ namespace Tests.Acceptance.Web.Excella.Vending.Machine
         private void GoToHomePage()
         {
             Browser.Navigate().GoToUrl(HOME_PAGE_URL);
-        }
-
-        private void ClickReleaseChangeButton()
-        {
-            var button = Browser.FindElement(By.Id("releaseChange"));
-
-            button.Click();
         }
 
         private int GetReleasedChange()
