@@ -46,7 +46,7 @@ namespace Tests.Acceptance.Web.Excella.Vending.Machine
                 throw new Exception("IIS Express must be running for this test to work");
             }
 
-            GoToHomePage();
+            Browser.Navigate().GoToUrl(HOME_PAGE_URL);
         }
 
         [AfterScenario]
@@ -120,11 +120,6 @@ namespace Tests.Acceptance.Web.Excella.Vending.Machine
         public void ThenIShouldNotReceiveAProduct()
         {
             //Assert.IsNull(product);
-        }
-
-        private void GoToHomePage()
-        {
-            Browser.Navigate().GoToUrl(HOME_PAGE_URL);
         }
 
         private int GetReleasedChange()
