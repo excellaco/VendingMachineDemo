@@ -14,7 +14,7 @@ namespace Tests.Integration.Excella.Vending.Web.UI
     {
         private TransactionScope _transactionScope;
         private VendingMachineController _controller;
-        private readonly IPaymentDAO _paymentDao = new EFPaymentDAO();
+        private IPaymentDAO _paymentDao = new EFPaymentDAO();
 
         [OneTimeSetUp]
         public void FixtureSetup()
@@ -26,6 +26,7 @@ namespace Tests.Integration.Excella.Vending.Web.UI
         public void Setup()
         {
             _transactionScope = new TransactionScope();
+            _paymentDao = new EFPaymentDAO();
             var paymentProcessor = new CoinPaymentProcessor(_paymentDao);
             var vendingMachine = new VendingMachine(paymentProcessor);
             _controller = new VendingMachineController(vendingMachine);
