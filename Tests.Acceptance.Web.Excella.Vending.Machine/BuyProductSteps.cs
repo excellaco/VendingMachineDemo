@@ -59,7 +59,8 @@ namespace Tests.Acceptance.Web.Excella.Vending.Machine
         [When(@"I insert a Quarter")]
         public void WhenIInsertAQuarter()
         {
-            ClickInsertCoinButton();
+            var button = Browser.FindElement(By.Id("insertCoin"));
+            button.Click();
         }
 
         [Then(@"The balance should be (.*) cents")]
@@ -73,7 +74,8 @@ namespace Tests.Acceptance.Web.Excella.Vending.Machine
         [Given(@"I have inserted a quarter")]
         public void GivenIHaveInsertedAQuarter()
         {
-            ClickInsertCoinButton();
+            var button = Browser.FindElement(By.Id("insertCoin"));
+            button.Click();
         }
 
         [When("I do not purchase a product")]
@@ -133,12 +135,6 @@ namespace Tests.Acceptance.Web.Excella.Vending.Machine
                 return changeAmt;
             }
             return 0;
-        }
-
-        private void ClickInsertCoinButton()
-        {
-            var button = Browser.FindElement(By.Id("insertCoin"));
-            button.Click();
         }
 
         private int GetBalance()
