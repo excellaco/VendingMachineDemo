@@ -7,10 +7,22 @@ using TechTalk.SpecFlow;
 
 namespace Tests.Acceptance.Web.Excella.Vending.Machine
 {
+
     [Binding]
     public class BuyProductSteps
     {
-        private IWebDriver _browser;
+        public static IWebDriver _browser
+        {
+            get
+            {
+                if (!FeatureContext.Current.ContainsKey("browser"))
+                {
+                    FeatureContext.Current["browser"] = new ChromeDriver();
+                }
+                return (IWebDriver)FeatureContext.Current["browser"];
+            }
+        }
+
         private const string HOME_PAGE_URL = "http://localhost:8484/";
 
         [BeforeFeature]
@@ -22,6 +34,7 @@ namespace Tests.Acceptance.Web.Excella.Vending.Machine
         [AfterFeature]
         public static void AfterFeature()
         {
+            _browser.Quit();
             IISExpressTestManager.StopIISExpress();
         }
 
@@ -33,8 +46,6 @@ namespace Tests.Acceptance.Web.Excella.Vending.Machine
                 throw new Exception("IIS Express must be running for this test to work");
             }
 
-            _browser = new ChromeDriver();
-
             GoToHomePage();
         }
 
@@ -42,9 +53,6 @@ namespace Tests.Acceptance.Web.Excella.Vending.Machine
         public void Teardown()
         {
             ClickReleaseChangeButton();
-
-            _browser.Close();
-            _browser.Dispose();
         }
 
         [When(@"I insert a Quarter")]
