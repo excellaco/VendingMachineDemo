@@ -7,13 +7,13 @@ using System.Transactions;
 namespace Tests.Integration.Excella.Vending.Machine
 {
     [TestFixtureSource(typeof(PaymentDaoTestCases), "TestCases")]
-    public class VendingMachineTests
+    public class VendingMachineTestsADO
     {
         private VendingMachine _vendingMachine;
         private readonly IPaymentDAO _injectedPaymentDao;
         private TransactionScope _transactionScope;
 
-        public VendingMachineTests(IPaymentDAO paymentDao)
+        public VendingMachineTestsADO(IPaymentDAO paymentDao)
         {
             _injectedPaymentDao = paymentDao;
         }
