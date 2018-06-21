@@ -19,10 +19,16 @@ Using Chocolatey (<http://chocolatey.org>) could be helpful in installing these 
 
 
 ### Running the Migration to Deploy the Database
-TODO.
+
+* Open the package management console
+* Select `Excella.Vending.DAL` as the default project
+* In the package management console, type `Update-Database` and run.
+
+This should create the database and run the initial migration to set everything up.
 
 ### Adding the Initial Payment row to the Database
-TODO.
+
+This is performed by the initial migration, but you can run the following SQL if there is no row in the `Payments` table.
 
 ```
   SET IDENTITY_INSERT dbo.Payment ON
