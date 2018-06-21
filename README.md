@@ -10,10 +10,13 @@ To run the project, you'll need to have some basic items set up or installed.
 * **Visual Studio**. You'll need Visual Studio to run the examples
 * **SQL Server**. The acceptance tests and web application use a database, which this example assumes is a SQL Server database.
 * **Selenium Chrome Driver**. We'll need this to run instances of chrome on our machine.
+
+Using Chocolatey (<http://chocolatey.org>) could be helpful in installing these prerequisites, e.g. then you can run `choco install chromedriver` to install ChromeDriver.
  
 ## Getting Started
 
 ### Adding the Selenium Chrome Driver to the PATH variable.
+
 
 ### Running the Migration to Deploy the Database
 TODO.
