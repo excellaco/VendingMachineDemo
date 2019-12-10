@@ -13,30 +13,19 @@ namespace Tests.Acceptance.Web.Excella.Vending.Machine
     [Binding]
     public class BuyProductSteps
     {
-        private static FeatureContext _context;
-        private IWebDriver Browser => _context.Get<IWebDriver>("browser");
+        private IWebDriver Browser;
 
-        public BuyProductSteps(FeatureContext context)
+        public BuyProductSteps(IWebDriver browser)
         {
-            _context = context;
-
-            //Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location))
-            _context.Add("browser", new ChromeDriver());
+            Browser = browser;
         }
 
-        private const string HOME_PAGE_URL = "http://localhost:5000/";
-
-        [BeforeTestRun]
-        public static void BeforeFeature()
-        {
-            //IISExpressTestManager.StartIISExpress();
-        }
+        private const string HOME_PAGE_URL = "http://localhost:5000/VendingMachine";
 
         [AfterTestRun]
         public static void AfterFeature()
         {
-            Browser.Quit();
-            //IISExpressTestManager.StopIISExpress();
+
         }
 
         [BeforeScenario]
