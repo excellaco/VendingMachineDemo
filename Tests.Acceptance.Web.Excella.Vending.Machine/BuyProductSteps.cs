@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using System.Reflection;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
@@ -11,31 +13,30 @@ namespace Tests.Acceptance.Web.Excella.Vending.Machine
     [Binding]
     public class BuyProductSteps
     {
-        public static IWebDriver Browser
+        private static FeatureContext _context;
+        private IWebDriver Browser => _context.Get<IWebDriver>("browser");
+
+        public BuyProductSteps(FeatureContext context)
         {
-            get
-            {
-                if (!FeatureContext.Current.ContainsKey("browser"))
-                {
-                    FeatureContext.Current["browser"] = new ChromeDriver();
-                }
-                return (IWebDriver)FeatureContext.Current["browser"];
-            }
+            _context = context;
+
+            //Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location))
+            _context.Add("browser", new ChromeDriver());
         }
 
-        private const string HOME_PAGE_URL = "http://localhost:8484/";
+        private const string HOME_PAGE_URL = "http://localhost:5000/";
 
         [BeforeTestRun]
         public static void BeforeFeature()
         {
-            IISExpressTestManager.StartIISExpress();
+            //IISExpressTestManager.StartIISExpress();
         }
 
         [AfterTestRun]
         public static void AfterFeature()
         {
             Browser.Quit();
-            IISExpressTestManager.StopIISExpress();
+            //IISExpressTestManager.StopIISExpress();
         }
 
         [BeforeScenario]
