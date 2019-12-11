@@ -64,7 +64,7 @@ This will start a web application on ports `5000` and `5000`.
 You should be able to run tests in the test runner of your choice -- Visual Studio, ReSharper, NCrunch, etc.
 
 ## :warning: Known Issues
-* `ChromeDriver.exe` is still not cleaned up correctly. Instances remain around even after test execution.
+* `ChromeDriver.exe` is still not cleaned up correctly. Instances remain around even after test execution. You may want to quickly run `taskkill /im chromedriver.exe /F` when finished with tests.
 
 ## :warning: Recently Resolved Issues
 
