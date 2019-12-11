@@ -1,44 +1,76 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Text;
 using BoDi;
+using NUnit.Framework.Constraints;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.Edge;
-using OpenQA.Selenium.Firefox;
-using OpenQA.Selenium.IE;
-using OpenQA.Selenium.Support.UI;
 using TechTalk.SpecFlow;
 
 namespace Tests.Acceptance.Web.Excella.Vending.Machine
 {
+    //[Binding]
+    //public class BootstrapSelenium : IDisposable
+    //{
+    //    private readonly IObjectContainer _objectContainer;
+    //    private IWebDriver _webDriver = null;
+
+    //    public BootstrapSelenium(IObjectContainer objectContainer)
+    //    {
+    //        _objectContainer = objectContainer;
+    //    }
+
+    //    [BeforeScenario]
+    //    public void LoadDriverAndDefaultWait()
+    //    {
+    //        _webDriver = new ChromeDriver();
+    //        _objectContainer.RegisterInstanceAs(_webDriver, typeof(IWebDriver));
+    //    }
+
+    //    [AfterScenario]
+    //    public void Dispose()
+    //    {
+    //        _webDriver?.Quit();
+    //        //if (_webDriver != null)
+    //        //{
+    //        //    _webDriver.Dispose();
+    //        //    _webDriver = null;
+    //        //}
+    //    }
+    //}
+
     [Binding]
-    public class BootstrapSelenium : IDisposable
+    public class WebDriverSupport
     {
-        private readonly IObjectContainer _objectContainer;
-        private IWebDriver _webDriver = null;
+        private readonly IObjectContainer objectContainer;
 
-        public BootstrapSelenium(IObjectContainer objectContainer)
+        public WebDriverSupport(IObjectContainer objectContainer)
         {
-            _objectContainer = objectContainer;
+            this.objectContainer = objectContainer;
         }
 
+        private void RegisterWebDriver()
+        {
+            var webDriver = new ChromeDriver();
+            objectContainer.RegisterInstanceAs<IWebDriver>(webDriver);
+        }
         [BeforeScenario]
-        public void LoadDriverAndDefaultWait()
+        public void InitializeWebDriver()
         {
-                    _webDriver = new ChromeDriver();
-            _objectContainer.RegisterInstanceAs(_webDriver, typeof(IWebDriver));
+            if (!objectContainer.IsRegistered<IWebDriver>())
+            {
+                RegisterWebDriver();
+                return;
+            }
+
+            if (objectContainer.Resolve<IWebDriver>() == null)
+            {
+                RegisterWebDriver();
+            }
         }
 
-        [AfterScenario]
-        public void Dispose()
+        [AfterScenario()]
+        public void AfterScenario()
         {
-            if (_webDriver != null)
-            {
-                _webDriver.Quit();
-                _webDriver = null;
-            }
+            objectContainer.Resolve<IWebDriver>().Close();
         }
     }
 }

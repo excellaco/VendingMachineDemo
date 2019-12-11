@@ -1,6 +1,4 @@
 ﻿using System;
-using System.IO;
-using System.Reflection;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
@@ -11,13 +9,13 @@ namespace Tests.Acceptance.Web.Excella.Vending.Machine
 {
 
     [Binding]
-    public class BuyProductSteps
+    public class BuyProductSteps :IDisposable
     {
         private IWebDriver Browser;
 
-        public BuyProductSteps(IWebDriver browser)
+        public BuyProductSteps()
         {
-            Browser = browser;
+            Browser = new ChromeDriver();
         }
 
         private const string HOME_PAGE_URL = "http://localhost:5000/VendingMachine";
@@ -111,6 +109,13 @@ namespace Tests.Acceptance.Web.Excella.Vending.Machine
         public void ThenIShouldNotReceiveAProduct()
         {
             //Assert.IsNull(product);
+        }
+
+        public void Dispose()
+        {
+            Browser?.Quit();
+            Browser?.Dispose();
+            Browser = null;
         }
     }
 }
