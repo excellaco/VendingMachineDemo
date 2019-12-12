@@ -62,8 +62,7 @@ namespace Tests.Integration.Excella.Vending.Web.UI
         {
             _controller.InsertCoin();
 
-            var result = _controller.ReleaseChange() as RedirectToRouteResult;
-            var actionName = result.RouteValues["action"];
+            var result = _controller.ReleaseChange() as RedirectToActionResult;
             var releasedChange = result.RouteValues["ReleasedChange"];
 
             Assert.That(releasedChange, Is.EqualTo(25));
