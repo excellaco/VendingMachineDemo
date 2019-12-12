@@ -9,33 +9,21 @@ namespace Tests.Acceptance.Web.Excella.Vending.Machine
 {
 
     [Binding]
-    public class BuyProductSteps
+    public class BuyProductSteps :IDisposable
     {
-        public static IWebDriver Browser
+        private IWebDriver Browser;
+
+        public BuyProductSteps()
         {
-            get
-            {
-                if (!FeatureContext.Current.ContainsKey("browser"))
-                {
-                    FeatureContext.Current["browser"] = new ChromeDriver();
-                }
-                return (IWebDriver)FeatureContext.Current["browser"];
-            }
+            Browser = new ChromeDriver();
         }
 
-        private const string HOME_PAGE_URL = "http://localhost:8484/";
-
-        [BeforeTestRun]
-        public static void BeforeFeature()
-        {
-            IISExpressTestManager.StartIISExpress();
-        }
+        private const string HOME_PAGE_URL = "http://localhost:5000/VendingMachine";
 
         [AfterTestRun]
         public static void AfterFeature()
         {
-            Browser.Quit();
-            IISExpressTestManager.StopIISExpress();
+
         }
 
         [BeforeScenario]
@@ -121,6 +109,13 @@ namespace Tests.Acceptance.Web.Excella.Vending.Machine
         public void ThenIShouldNotReceiveAProduct()
         {
             //Assert.IsNull(product);
+        }
+
+        public void Dispose()
+        {
+            Browser?.Quit();
+            Browser?.Dispose();
+            Browser = null;
         }
     }
 }

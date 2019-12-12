@@ -7,13 +7,12 @@ This demo shows a working example of a small project with unit tests at each lev
 To run the project, you'll need to have some basic items set up or installed.
 
 * **Internet.** You'll need an internet connection so that you can restore nuget packages.
-* **Visual Studio**. You'll need Visual Studio to run the examples (working on a version with .NET core for the future)
+* **.NET Core SDK.** You'll need the latest version of the .NET Core SDK. 3.1 should suffice.
+* **Visual Studio or similar IDE`**. VSCode should work fine.
 * **SQL Server Express**. The acceptance tests and web application use a database, which this example assumes is a SQL Server database.
-* **Selenium Chrome Driver**. We'll need this to run instances of chrome on our machine.
 
 Using Chocolatey (<http://chocolatey.org>) could be helpful in installing these prerequisites, e.g. then you can run: 
 
-* `choco install chromedriver` to install ChromeDriver
 * `choco install MsSqlServer2014Express` to install SQL Server express.
  
 ## Getting Started
@@ -44,14 +43,34 @@ This is performed by the initial migration, but you can run the following SQL if
   SET IDENTITY_INSERT dbo.Payment OFF
 ```
 
+## Building the Application
+
+You can build via Visual Studio if you'd like.
+
+You can also open the root of the project in a comman prompt and then run `dotnet build`
+
+## Deploying the Application
+
+You don't need IIS to run the application.
+
+After building, open a command prompt in the root of the repository, and run:
+
+`dotnet run --project Excella.Vending.Web.UI`
+
+This will start a web application on ports `5000` and `5000`.
+
 ## Running the tests
 
 You should be able to run tests in the test runner of your choice -- Visual Studio, ReSharper, NCrunch, etc.
 
+## :warning: Known Issues
+* `ChromeDriver.exe` is still not cleaned up correctly. Instances remain around even after test execution. You may want to quickly run `taskkill /im chromedriver.exe /F` when finished with tests.
+
+## :warning: Recently Resolved Issues
+
+* IIS Express setup was gnarly. We moved the project to .NET Core to avoid some of the platform / machine specific issues.
+* AATs had to be run using Debugging rather than just executing the tests. This no longer appears to be an issue.
+
 ### :warning: KNOWN ISSUE: Currently the Chrome-based AATs require Debugging
 
 For some reason, the IIS Express setup appears to refuse connections unless the application is being actively debugged. So rather than running those tests, you may need to "Debug" those tests in order to get them to pass successfully.
-
-### :warning: KNOWN ISSUE: AAT Cleanup
-
-Currently there appears to be an issue where, when running AATs, IIS express is not cleaned up at the end of the tests. This is likely due to the static way we're managing the browser, etc.

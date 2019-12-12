@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Configuration;
 using System.Data.SqlClient;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Configuration.Json;
 
 namespace Excella.Vending.DAL
 {
@@ -81,7 +83,14 @@ namespace Excella.Vending.DAL
 
         private SqlConnection GetConnection()
         {
-            var connectionString = ConfigurationManager.ConnectionStrings["VendingMachineContext"].ConnectionString;
+            var builder = new ConfigurationBuilder();
+            builder.AddJsonFile("appsettings.json");
+
+            var connectionString = builder
+                .Build()
+                .GetSection("ConnectionStrings")
+                .GetSection("VendingMachineContext")
+                .Value;
 
             return new SqlConnection(connectionString);
         }
