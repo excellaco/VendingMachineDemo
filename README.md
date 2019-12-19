@@ -1,3 +1,9 @@
+# This repository is now archived.
+
+For future updates and to follow progress, please see:
+
+https://github.com/excellatraining/VendingMachineDemo
+
 # Welcome to the Excella Vending Machine demo!
 This demo shows a working example of a small project with unit tests at each level.
 
